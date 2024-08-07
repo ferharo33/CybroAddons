@@ -47,7 +47,7 @@ class AccountTrialBalance(models.TransientModel):
         """
 #        account_ids = self.env['account.move.line'].search([]).mapped(
 #            'account_id')
-        account_ids = self.env['account.move.line'].search([], order='account_id.code asc').mapped('account_id')
+        account_ids = self.env['account.move.line'].search([]).mapped('account_id').sorted(key=lambda r: r.code)
         today = fields.Date.today()
         move_line_list = []
         for account_id in account_ids:
@@ -126,7 +126,7 @@ class AccountTrialBalance(models.TransientModel):
         dynamic_total_credit = {}
 #        account_ids = self.env['account.move.line'].search([]).mapped(
 #            'account_id')
-        account_ids = self.env['account.move.line'].search([], order='account_id.code asc').mapped('account_id')
+        account_ids = self.env['account.move.line'].search([]).mapped('account_id').sorted(key=lambda r: r.code)
         move_line_list = []
         start_date_first = \
             get_fiscal_year(datetime.strptime(start_date, "%Y-%m-%d").date())[

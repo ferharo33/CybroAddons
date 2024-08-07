@@ -52,7 +52,8 @@ class AccountGeneralLedger(models.TransientModel):
         account_totals = {}
         move_line_ids = self.env['account.move.line'].search(
             [('parent_state', '=', 'posted')])
-        account_ids = move_line_ids.mapped('account_id')
+#        account_ids = move_line_ids.mapped('account_id')
+        account_ids = self.env['account.move.line'].search([]).mapped('account_id').sorted(key=lambda r: r.code)
         account_dict['journal_ids'] = self.env['account.journal'].search_read(
             [], ['name'])
         account_dict['analytic_ids'] = self.env[
@@ -171,7 +172,8 @@ class AccountGeneralLedger(models.TransientModel):
                                              '%Y-%m-%d').date()
                 domain += [('date', '<=', end_date)]
         move_line_ids = self.env['account.move.line'].search(domain)
-        account_ids = move_line_ids.mapped('account_id')
+#        account_ids = move_line_ids.mapped('account_id')
+        account_ids = self.env['account.move.line'].search([]).mapped('account_id').sorted(key=lambda r: r.code)
         account_dict['journal_ids'] = self.env['account.journal'].search_read(
             [], ['name'])
         account_dict['analytic_ids'] = self.env[

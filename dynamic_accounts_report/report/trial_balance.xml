@@ -120,11 +120,11 @@
                                         <th colspan="6">
                                             <t t-esc="move_line['account']"/>
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align:right;">
                                             <t t-if="move_line['initial_total_debit']"
-                                               t-esc="move_line['initial_total_debit']"/>
+                                               t-esc="formatLang(env, move_line['initial_total_debit']"/>
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align:right;">
                                             <t t-if="move_line['initial_total_credit']"
                                                t-esc="move_line['initial_total_credit']"/>
                                         </th>
@@ -133,29 +133,29 @@
                                                t-value="comparison_number_range"/>
                                             <t t-foreach="number_of_periods"
                                                t-as="num" t-key="num">
-                                                <th style="text-align:center;">
+                                                <th style="text-align:right;">
                                                     <t t-if="move_line['dynamic_total_debit_' + str(num)]"
                                                        t-esc="move_line['dynamic_total_debit_' + str(num)]"/>
                                                 </th>
-                                                <th style="text-align:center;">
+                                                <th style="text-align:right;">
                                                     <t t-if="move_line['dynamic_total_credit_' + str(num)]"
                                                        t-esc="move_line['dynamic_total_credit_' + str(num)]"/>
                                                 </th>
                                             </t>
                                         </t>
-                                        <th style="text-align:center;">
+                                        <th style="text-align:right;">
                                             <t t-if="move_line['total_debit']"
                                                t-esc="move_line['total_debit']"/>
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align:right;">
                                             <t t-if="move_line['total_credit']"
                                                t-esc="move_line['total_credit']"/>
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align:right;">
                                             <t t-if="move_line['end_total_debit']"
                                                t-esc="move_line['end_total_debit']"/>
                                         </th>
-                                        <th style="text-align:center;">
+                                        <th style="text-align:right;">
                                             <t t-if="move_line['end_total_credit']"
                                                t-esc="move_line['end_total_credit']"/>
                                         </th>

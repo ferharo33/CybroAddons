@@ -1,36 +1,19 @@
-# -*- coding: utf-8 -*-
-############################################################################
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2023-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
-#    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
-#
-#    You can modify it under the terms of the GNU LESSER
-#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
-#
-#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
-#    (LGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
-############################################################################
-
 import json
 import logging
 import requests
 
-from odoo import api, exceptions, models, _
+from odoo import api, models, _
 from odoo.http import request
-from odoo.addons import base as base_addons
-from odoo.addons.auth_signup.models.res_users import AccessDenied
-from odoo.tools import jwt
+from odoo.addons import base
+from odoo.addons.auth_signup.models.res_users import SignupError
 
 _logger = logging.getLogger(__name__)
+
+try:
+    import jwt
+except ImportError:
+    _logger.warning("Login with Microsoft account won't be available. Please install PyJWT python library.")
+    jwt = None
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
@@ -68,7 +51,7 @@ class ResUsers(models.Model):
         }
         if token_info.get('id_token'):
             if not jwt:
-                raise exceptions.AccessDenied()
+                raise Exception("Access Denied")
             data = jwt.decode(token_info['id_token'], verify=False)
         else:
             data = self._auth_oauth_rpc(auth_oauth_provider.data_endpoint, access_token)
@@ -77,7 +60,7 @@ class ResUsers(models.Model):
 
     @api.model
     def _auth_oauth_signin(self, provider, validation, params):
-        """ Retrieve and sign in the user """
+        """ Retrieve and sign in the user corresponding to provider and validated access token """
         user = self.search([('login', '=', str(validation.get('email')))])
         if not user:
             user = self.create({
@@ -98,11 +81,11 @@ class ResUsers(models.Model):
         try:
             oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])
             if not oauth_user:
-                raise exceptions.AccessDenied()
+                raise Exception("Access Denied")
             assert len(oauth_user) == 1
             oauth_user.write({'oauth_access_token': params['access_token']})
             return oauth_user.login
-        except (exceptions.AccessDenied, exceptions.AccessDenied):
+        except (Exception, Exception):
             if self.env.context.get('no_user_creation'):
                 return None
             state = json.loads(params['state'])
@@ -112,7 +95,7 @@ class ResUsers(models.Model):
                 _, login, _ = self.signup(values, token)
                 return login
             except SignupError:
-                raise exceptions.AccessDenied()
+                raise Exception("Access Denied")
         return super(ResUsers, self)._auth_oauth_signin(provider, validation, params)
 
     @api.model
@@ -131,10 +114,10 @@ class ResUsers(models.Model):
             elif validation.get('oid'):
                 validation['user_id'] = validation['oid']
             else:
-                raise exceptions.AccessDenied()
+                raise Exception("Access Denied")
         login = self._auth_oauth_signin(provider, validation, params)
         if not login:
-            raise exceptions.AccessDenied()
+            raise Exception("Access Denied")
         if provider and params:
             return self.env.cr.dbname, login, access_token
         return super(ResUsers, self).auth_oauth(provider, params)

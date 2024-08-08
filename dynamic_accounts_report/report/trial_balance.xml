@@ -122,7 +122,7 @@
                                         </th>
                                         <th style="text-align:right;">
                                             <t t-if="move_line['initial_total_debit']"
-                                               t-esc="formatLang(env, move_line['initial_total_debit']"/>
+                                               t-esc="'{:,.2f}'.format(move_line['initial_total_debit'])"/>
                                         </th>
                                         <th style="text-align:right;">
                                             <t t-if="move_line['initial_total_credit']"

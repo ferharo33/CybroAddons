@@ -41,7 +41,7 @@ class BankBookReport(models.TransientModel):
         # Asegúrate de que las líneas de movimiento se recuperan y ordenan por el código de cuenta
         account_move_lines = self.env['account.move.line'].search(
             [('parent_state', '=', 'posted'), ('journal_id', 'in', journals.ids)],
-            order='account_id.code'  # Ordenamiento por código de cuenta
+            order='account_id.code asc'  # Ordenamiento por código de cuenta
         )
         
         # Agrupar líneas de movimiento por cuenta y calcular totales

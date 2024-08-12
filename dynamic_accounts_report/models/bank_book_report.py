@@ -29,43 +29,36 @@ from odoo import api, fields, models
 
 
 class BankBookReport(models.TransientModel):
-    """For creating Bank Book report"""
     _name = 'bank.book.report'
     _description = 'Account Bank Book Report'
 
     @api.model
     def view_report(self):
-        """
-        This method retrieves and returns the necessary data for the partner
-        ledger report.It fetches account move lines, grouped by accounts, and
-        calculates total debit and credit amounts.The resulting data includes
-        move lines for each account and the total debit and credit amounts for
-        each account.
-        """
         data = {}
         move_lines_total = {}
-        journals = self.env['account.journal'].search(
-            [('type', '=', 'bank')])
+        journals = self.env['account.journal'].search([('type', '=', 'bank')])
+        
+        # Asegúrate de que las líneas de movimiento se recuperan y ordenan por el código de cuenta
         account_move_lines = self.env['account.move.line'].search(
-            [('parent_state', '=', 'posted'),
-             ('journal_id', 'in', journals.ids)])
-        accounts = account_move_lines.mapped('account_id').read(
-            ['display_name', 'name'])
+            [('parent_state', '=', 'posted'), ('journal_id', 'in', journals.ids)],
+            order='account_id.code'  # Ordenamiento por código de cuenta
+        )
+        
+        # Agrupar líneas de movimiento por cuenta y calcular totales
+        accounts = account_move_lines.mapped('account_id').sorted(key=lambda a: a.code)  # Ordenamiento secundario en Python por código
         for account in accounts:
-            move_lines = account_move_lines.filtered(
-                lambda x: x.account_id.id == account['id'])
+            move_lines = account_move_lines.filtered(lambda x: x.account_id == account)
             move_line_data = move_lines.read(
-                ['date', 'journal_id', 'partner_id', 'move_name', 'debit',
-                 'move_id',
-                 'credit', 'name', 'ref'])
-            data[move_lines.mapped('account_id').display_name] = move_line_data
+                ['date', 'journal_id', 'partner_id', 'move_name', 'debit', 'credit', 'name', 'ref'])
+            data[account.display_name] = move_line_data
             currency_id = self.env.company.currency_id.symbol
-            move_lines_total[move_lines.mapped('account_id').display_name] = {
+            move_lines_total[account.display_name] = {
                 'total_debit': round(sum(move_lines.mapped('debit')), 2),
                 'total_credit': round(sum(move_lines.mapped('credit')), 2),
-                'currency_id': currency_id}
+                'currency_id': currency_id
+            }
+
         data['move_lines_total'] = move_lines_total
-        data['accounts'] = accounts
         return data
 
     @api.model

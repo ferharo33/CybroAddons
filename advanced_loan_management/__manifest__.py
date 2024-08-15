@@ -39,6 +39,7 @@
         'security/loan_management_security.xml',
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
+        'data/loan_journal_data.xml',
         'views/loan_type_views.xml',
         'views/loan_request_views.xml',
         'views/repayment_lines_views.xml',

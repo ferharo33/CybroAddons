@@ -29,6 +29,6 @@ def _post_payments(self, to_process, edit_mode=False):
     for record in self:
         # Cambiar 'ilike' por '=' para asegurar coincidencia exacta
         loan_line_id = self.env['repayment.line'].search([
-            ('name', '=', record.communication)])
+            ('name', 'ilike', record.communication)])
         loan_line_id.write({'state': 'paid'})
     return res

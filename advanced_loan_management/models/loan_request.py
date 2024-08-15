@@ -50,7 +50,7 @@ class LoanRequest(models.Model):
     disbursal_amount = fields.Float(string="Disbursal Amount",
                                     help="Total loan amount "
                                          "available to disburse")
-    tenure = fields.Integer(string="Tenure", default=1,
+    tenure = fields.Integer(string="Periods", default=1,
                             help="Installment period")
     interest_rate = fields.Float(string="Interest Rate", help="Interest "
                                                               "percentage")

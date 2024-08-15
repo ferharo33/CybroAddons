@@ -24,7 +24,7 @@
                             <thead>
                                 <tr>
                                     <th>Loan Type</th>
-                                    <th>Tenure</th>
+                                    <th>Period</th>
                                     <th>Loan Amount</th>
                                     <th>Interest Rate</th>
                                 </tr>

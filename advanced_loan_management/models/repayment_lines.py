@@ -123,8 +123,8 @@ class RepaymentLine(models.Model):
         })
         if invoice:
             invoice.action_post()
-            rec.invoice = True
-            rec.state = 'invoiced'
+            self.invoice=True
+            self.write({'state':'invoiced'})
         return {
             'name': 'Invoice',
             'res_model': 'account.move',

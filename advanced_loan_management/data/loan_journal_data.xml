@@ -7,6 +7,7 @@
             <field name="name">Disburse</field>
             <field name="code">DIS</field>
             <field name="type">purchase</field>
+            <field name="reconcile_mode">edit</field> 
         </record>
 
         <!--        Demo data for account.account-->

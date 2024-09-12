@@ -57,7 +57,8 @@ class ResUsers(models.Model):
         if token_info.get('id_token'):
             if not jwt:
                 raise Exception("Access Denied")
-            data = jwt.decode(token_info['id_token'], verify=False)
+            #data = jwt.decode(token_info['id_token'], verify=False)
+            data = jwt.decode(token_info['id_token'], options={"verify_signature": False}, algorithms=["RS256"])
         else:
             data = self._auth_oauth_rpc(auth_oauth_provider.data_endpoint, access_token)
         validation.update(data)

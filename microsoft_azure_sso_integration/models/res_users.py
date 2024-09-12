@@ -30,7 +30,12 @@ class ResUsers(models.Model):
     def _auth_oauth_code_validate(self, provider, code):
         """ Return the validation data corresponding to the access token """
         auth_oauth_provider = self.env['auth.oauth.provider'].browse(provider)
+        # AJUSTES FH
         redirect_uri = 'https://' + request.httprequest.host + '/auth_oauth/signin'
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        }
         token_info = requests.post(
             auth_oauth_provider.validation_endpoint,
             headers=headers,
@@ -39,7 +44,7 @@ class ResUsers(models.Model):
                 'client_secret': auth_oauth_provider.client_secret_id,
                 'grant_type': 'authorization_code',
                 'code': code,
-                'redirect_uri': redirect_uri  # Aquí usamos la variable correctamente definida
+                'redirect_uri': redirect_uri
             }
         ).json()
 

@@ -36,7 +36,7 @@ class ResUsers(models.Model):
             'grant_type': 'authorization_code',
             'code': code,
             #'redirect_uri': request.httprequest.url_root + 'auth_oauth/signin',
-            redirect_uri = 'https://' + request.httprequest.host + '/auth_oauth/signin',
+            redirect_uri: 'https://' + request.httprequest.host + '/auth_oauth/signin',
         }
         headers = {'Accept': 'application/json'}
         token_info = requests.post(

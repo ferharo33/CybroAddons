@@ -39,7 +39,8 @@ class OAuthLogin(Home):
         except Exception:
             auth_providers = []
         for rec in auth_providers:
-            return_url = http.request.httprequest.url_root + 'auth_oauth/signin'
+            # return_url = http.request.httprequest.url_root + 'auth_oauth/signin'
+            return_url = 'https://' + http.request.httprequest.host + '/auth_oauth/signin'
             state = self.get_state(rec)
             params = dict(
                 response_type=rec['response_type'],

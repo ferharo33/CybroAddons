@@ -43,6 +43,9 @@ class ResUsers(models.Model):
             headers=headers,
             data=req_params
         ).json()
+    
+        _logger.error("Token info response: %s", token_info)
+
         if token_info.get("error"):
             raise Exception(token_info['error'])
         access_token = token_info.get('access_token')

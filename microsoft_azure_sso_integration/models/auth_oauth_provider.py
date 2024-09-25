@@ -31,5 +31,5 @@ class AuthOauthProvider(models.Model):
                                    help="Client Secret of the microsoft app")
     response_type = fields.Selection([('token', 'Token'), ('code', 'Code')],
                                      default='token',
-                                     required=True, String="Response Type",
+                                     required=True, string="Response Type",
                                      help="Response type of the microsoft")

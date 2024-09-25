@@ -26,8 +26,22 @@ class ResUsers(models.Model):
             return requests.get(endpoint, params={'access_token': access_token}).json()
         return res
 
+    
     @api.model
     def _auth_oauth_code_validate(self, provider, code):
+        # Override to prevent automatic user creation if the user does not exist in Odoo
+        auth_oauth_provider = self.env['auth.oauth.provider'].browse(provider)
+        validation_data = super(ResUsers, self)._auth_oauth_code_validate(provider, code)
+        
+        # Search for the user based on the OAuth UID
+        user_oauth = self.search([('oauth_uid', '=', validation_data.get('user_id'))])
+        
+        if not user_oauth:
+            # If user is not found, raise an error instead of creating a new user
+            raise AccessDenied(_("Access Denied: User is not registered in Odoo. Please contact your administrator."))
+        
+        return validation_data
+    
         """ Return the validation data corresponding to the access token """
         auth_oauth_provider = self.env['auth.oauth.provider'].browse(provider)
         # AJUSTES FH

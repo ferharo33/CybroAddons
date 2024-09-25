@@ -31,13 +31,13 @@
         </record>
 
         <!--        Demo data for product.product-->
-        <record id="loan_management_repayment" model="product.product">
+        <record id="loan_management_repayment" model="product.template">
             <field name="name">Repayment Amount</field>
             <field name="type">service</field>
             <field name="sale_line_warn">no-message</field>
         </record>
 
-        <record id="loan_management_interest" model="product.product">
+        <record id="loan_management_interest" model="product.template">
             <field name="name">Interest Amount</field>
             <field name="type">service</field>
             <field name="sale_line_warn">no-message</field>

@@ -67,8 +67,17 @@ class ResUsers(models.Model):
     @api.model
     def _auth_oauth_signin(self, provider, validation, params):
         """ Retrieve and sign in the user corresponding to provider and validated access token """
+        # Buscar el usuario por correo electrónico
         user = self.search([('login', '=', str(validation.get('email')))])
+        
+        # Comprobar si no se encontró el usuario
         if not user:
+            # Verificar la configuración global de Odoo para la creación automática de usuarios
+            if not self.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited'):
+                _logger.warning("Access Denied: Auto-signup is disabled and the user does not exist.")
+                raise Exception("Access Denied: User creation is disabled.")
+            
+            # Si se permite la creación, crear el usuario
             user = self.create({
                 'login': str(validation.get('email')),
                 'name': str(validation.get('name'))
@@ -78,11 +87,15 @@ class ResUsers(models.Model):
                 user.is_contractor = provider_id.template_user_id.is_contractor
                 user.contractor = provider_id.template_user_id.contractor
                 user.groups_id = [(6, 0, provider_id.template_user_id.groups_id.ids)]
+        
+        # Actualizar la información OAuth del usuario
         user.write({
             'oauth_provider_id': provider,
             'oauth_uid': validation['user_id'],
             'oauth_access_token': params['access_token'],
         })
+
+        # Verificar si el usuario OAuth está correctamente vinculado
         oauth_uid = validation['user_id']
         try:
             oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])

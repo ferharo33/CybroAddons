@@ -40,6 +40,7 @@
         <record id="loan_management_interest" model="product.product">
             <field name="name">Interest Amount</field>
             <field name="type">service</field>
+            <field name="sale_line_warn">no-message</field>
         </record>
     </data>
 </odoo>

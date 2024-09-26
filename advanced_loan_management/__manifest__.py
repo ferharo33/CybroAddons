@@ -46,7 +46,7 @@
         'views/loan_documents_views.xml',
         'views/res_config_settings_views.xml',
         'views/loan_management_menus.xml',
-        'views/res_partner_views.xml',
+#       'views/res_partner_views.xml',
         'wizard/message_popup_views.xml',
         'wizard/reject_reason_views.xml',
         'report/loan_management_reports.xml',

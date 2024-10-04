@@ -236,7 +236,7 @@ selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
     def action_compute_repayment(self):
     """This automatically creates the installment the employee needs to pay to
     company based on payment start date and the number of installments."""
-    self.request = True
+        self.request = True
         for loan in self:
             loan.repayment_lines_ids.unlink()
             

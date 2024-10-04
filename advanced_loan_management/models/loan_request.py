@@ -103,13 +103,13 @@ class LoanRequest(models.Model):
     request = fields.Boolean(string="Request",
                              help="For monitoring the record")
     state = fields.Selection(string='State',
-selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
+        selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
                    ('waiting', 'Waiting For Approval'),
                    ('approved', 'Approved'), ('disbursed', 'Disbursed'),
                    ('rejected', 'Rejected'), ('closed', 'Closed')],
         copy=False, tracking=True, default='draft', help="Loan request states")
 
-@api.depends('interest_rate')
+    @api.depends('interest_rate')
     def _compute_interest_rate_percentage(self):
         """Compute para mostrar el valor del interés como porcentaje en la vista."""
         for record in self:

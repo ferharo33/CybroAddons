@@ -32,8 +32,12 @@ class LoanTypes(models.Model):
     loan_amount = fields.Integer(string='Loan Amount', help="Loan Amount")
     tenure = fields.Integer(string='Periods', default='1',
                             help="Amortization period")
-    tenure_plan = fields.Char(string="Duration", default='monthly',
-                              readonly=True, help="EMI payment plan")
+     # Añadir opción de plan quincenal en lugar de solo mensual
+    tenure_plan = fields.Selection(
+        [('monthly', 'Mensual'), ('biweekly', 'Quincenal')],
+        string="Plan de Amortización", default='monthly',
+        help="Selecciona el plan de amortización: Mensual o Quincenal")
+    
     interest_rate = fields.Float(string='Interest Rate',
                                  help="Loan Interest Rate")
     disbursal_amount = fields.Float(string='Disbursal Amount',

@@ -237,42 +237,42 @@ selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
     """This automatically creates the installment the employee needs to pay to
     company based on payment start date and the number of installments."""
     self.request = True
-    for loan in self:
-        loan.repayment_lines_ids.unlink()
-        
-        # Determinar el intervalo de pagos en base al tipo de plan de amortización
-        if loan.loan_type_id.tenure_plan == 'monthly':
-            date_start = datetime.strptime(str(loan.date), '%Y-%m-%d') + relativedelta(months=1)
-            interval = relativedelta(months=1)
-        elif loan.loan_type_id.tenure_plan == 'biweekly':  # Nuevo plan quincenal
-            date_start = datetime.strptime(str(loan.date), '%Y-%m-%d') + relativedelta(days=15)
-            interval = relativedelta(days=15)
-        else:
-            raise UserError(_("El plan de amortización seleccionado no es válido."))
-
-        amount = loan.loan_amount / loan.tenure
-        interest = loan.loan_amount * loan.interest_rate
-        interest_amount = interest / loan.tenure
-        total_amount = amount + interest_amount
-        partner = self.partner_id
-
-        for rand_num in range(1, loan.tenure + 1):
-            self.env['repayment.line'].create({
-                'name': f"{loan.name}/{rand_num}",
-                'partner_id': partner.id,
-                'date': date_start,
-                'amount': amount,
-                'interest_amount': interest_amount,
-                'total_amount': total_amount,
-                'interest_account_id': self.env.ref('advanced_loan_management.'
-                                                    'loan_management_'
-                                                    'inrst_accounts').id,
-                'repayment_account_id': self.env.ref('advanced_loan_management.'
-                                                     'demo_'
-                                                     'loan_accounts').id,
-                'loan_id': loan.id})
+        for loan in self:
+            loan.repayment_lines_ids.unlink()
             
-            # Actualizar la fecha para el siguiente periodo de amortización
-            date_start += interval
-    return True
+            # Determinar el intervalo de pagos en base al tipo de plan de amortización
+            if loan.loan_type_id.tenure_plan == 'monthly':
+                date_start = datetime.strptime(str(loan.date), '%Y-%m-%d') + relativedelta(months=1)
+                interval = relativedelta(months=1)
+            elif loan.loan_type_id.tenure_plan == 'biweekly':  # Nuevo plan quincenal
+                date_start = datetime.strptime(str(loan.date), '%Y-%m-%d') + relativedelta(days=15)
+                interval = relativedelta(days=15)
+            else:
+                raise UserError(_("El plan de amortización seleccionado no es válido."))
+
+            amount = loan.loan_amount / loan.tenure
+            interest = loan.loan_amount * loan.interest_rate
+            interest_amount = interest / loan.tenure
+            total_amount = amount + interest_amount
+            partner = self.partner_id
+
+            for rand_num in range(1, loan.tenure + 1):
+                self.env['repayment.line'].create({
+                    'name': f"{loan.name}/{rand_num}",
+                    'partner_id': partner.id,
+                    'date': date_start,
+                    'amount': amount,
+                    'interest_amount': interest_amount,
+                    'total_amount': total_amount,
+                    'interest_account_id': self.env.ref('advanced_loan_management.'
+                                                        'loan_management_'
+                                                        'inrst_accounts').id,
+                    'repayment_account_id': self.env.ref('advanced_loan_management.'
+                                                         'demo_'
+                                                         'loan_accounts').id,
+                    'loan_id': loan.id})
+                
+                # Actualizar la fecha para el siguiente periodo de amortización
+                date_start += interval
+        return True
 

@@ -83,7 +83,7 @@
                         </group>
                         <group>
                             <field name="processing_fee"/>
-                            <field name="interest_rate" widget="percentage"/>
+                            <field name="interest_rate_percentage" widget="percentage"/>
                             <field name="disbursal_amount"/>
                         </group>
                     </group>

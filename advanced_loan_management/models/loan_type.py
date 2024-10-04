@@ -38,8 +38,22 @@ class LoanTypes(models.Model):
         string="Plan de Amortización", default='monthly',
         help="Selecciona el plan de amortización: Mensual o Quincenal")
     
-    interest_rate = fields.Float(string='Interest Rate',
-                                 help="Loan Interest Rate")
+    # Campo que almacena el valor real del interés
+    interest_rate = fields.Float(
+        string='Interest Rate (Real)', 
+        digits=(16, 10),  # Asegúrate de permitir muchos decimales para cálculos precisos
+        help="Valor real del interés (por ejemplo, 0.0469 para 4.69%)")
+
+    # Campo para visualización en porcentaje
+    interest_rate_percentage = fields.Float(
+        string='Interest Rate (%)',
+        compute='_compute_interest_rate_percentage',
+        inverse='_inverse_interest_rate_percentage',
+        digits=(16, 4),
+        store=True,
+        help="Visualización del interés en porcentaje. Ejemplo: 4.69")
+
+
     disbursal_amount = fields.Float(string='Disbursal Amount',
                                     compute='_compute_disbursal_amount',
                                     help="Total Amount To Be Disbursed")
@@ -58,3 +72,14 @@ class LoanTypes(models.Model):
     def _compute_disbursal_amount(self):
         """Calculating amount for disbursing"""
         self.disbursal_amount = self.loan_amount - self.processing_fee
+
+    @api.depends('interest_rate')
+    def _compute_interest_rate_percentage(self):
+        """Compute para mostrar el valor del interés como porcentaje en la vista."""
+        for record in self:
+            record.interest_rate_percentage = record.interest_rate * 100
+
+    def _inverse_interest_rate_percentage(self):
+        """Permite al usuario ingresar el valor como porcentaje y lo almacena como real."""
+        for record in self:
+            record.interest_rate = record.interest_rate_percentage / 100

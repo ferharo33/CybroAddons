@@ -52,8 +52,21 @@ class LoanRequest(models.Model):
                                          "available to disburse")
     tenure = fields.Integer(string="Periods", default=1,
                             help="Installment period")
-    interest_rate = fields.Float(string="Interest Rate", help="Interest "
-                                                              "percentage")
+    # Campo que almacena el valor real del interés en el modelo loan.request
+    interest_rate = fields.Float(
+        string='Interest Rate (Real)', 
+        digits=(16, 10),  # Asegúrate de permitir decimales para cálculos precisos
+        help="Valor real del interés (por ejemplo, 0.0469 para 4.69%)")
+
+    # Campo para visualización en porcentaje
+    interest_rate_percentage = fields.Float(
+        string='Interest Rate (%)',
+        compute='_compute_interest_rate_percentage',
+        inverse='_inverse_interest_rate_percentage',
+        digits=(16, 4),
+        store=True,
+        help="Visualización del interés en porcentaje. Ejemplo: 4.69")
+
     date = fields.Date(string="Date", default=fields.Date.today(),
                        readonly=True, help="Date")
     partner_id = fields.Many2one('res.partner', string="Partner",
@@ -95,6 +108,17 @@ selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
                    ('approved', 'Approved'), ('disbursed', 'Disbursed'),
                    ('rejected', 'Rejected'), ('closed', 'Closed')],
         copy=False, tracking=True, default='draft', help="Loan request states")
+
+@api.depends('interest_rate')
+    def _compute_interest_rate_percentage(self):
+        """Compute para mostrar el valor del interés como porcentaje en la vista."""
+        for record in self:
+            record.interest_rate_percentage = record.interest_rate * 100
+
+    def _inverse_interest_rate_percentage(self):
+        """Permite al usuario ingresar el valor como porcentaje y lo almacena como real."""
+        for record in self:
+            record.interest_rate = record.interest_rate_percentage / 100
 
     @api.model
     def create(self, vals):

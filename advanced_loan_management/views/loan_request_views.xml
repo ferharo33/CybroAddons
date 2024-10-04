@@ -16,7 +16,7 @@
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="loan_amount"/>
-                    <field name="interest_rate"/>
+                    <field name="interest_rate_percentage" widget="percentage"/>
                     <field name="date"/>
                     <field name="tenure"/>
                     <field name="company_id"/>
@@ -94,7 +94,7 @@
                             </group>
                             <group>
                                 <field name="loan_amount"/>
-                                <field name="interest_rate" widget="percentage"/>
+                                <field name="interest_rate_percentage" widget="percentage"/>
                                 <field name="company_id"/>
                             </group>
                         </group>

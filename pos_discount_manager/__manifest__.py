@@ -20,7 +20,7 @@
 #############################################################################
 {
     'name': "POS Discount Manager Approval",
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Point Of Sale',
     'summary': "Discount limit for each employee in every  point of sale""",
     'description': """This module helps you to set a discount limit for each 

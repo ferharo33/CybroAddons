@@ -40,6 +40,7 @@ patch(RewardButton.prototype,{
             rewards = claimableRewards.filter(
                 ({ reward }) => reward.program_id.program_type !== "ewallet"
             );
+
         }
         var pointCheck = false
         for (const pointChange of Object.values(order.couponPointChanges)){

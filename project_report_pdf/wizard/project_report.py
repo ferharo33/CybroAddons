@@ -171,7 +171,6 @@ class ProjectReport(models.TransientModel):
             sheet.merge_range('C10:D10', str(date_end), format5)
         else:
             sheet.merge_range('C10:D10', '', format5)
-        sheet.merge_range(0, 2, 4, 5, "", format5)
         sheet.merge_range(1, 6, 4, 7, "", format5)
         sheet.merge_range(7, 4, 9, 7, "", format5)
         sheet.merge_range(10, 4, 11, 7, "", format5)

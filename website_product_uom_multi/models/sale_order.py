@@ -43,7 +43,13 @@ class SaleOrder(models.Model):
                 _('It is forbidden to modify a sales order which is not in draft status.'))
 
         product = self.env['product.product'].browse(product_id).exists()
-        uom_id = self.env['uom.uom'].browse(uom)
+        uom_id = kwargs.pop('uom_id', None)
+        if uom is not None:
+            uom_id = uom
+
+        if uom_id:
+            uom_id = self.env['uom.uom'].browse(int(uom_id))
+
         if add_qty and (not product or not product._is_add_to_cart_allowed()):
             raise UserError(
                 _("The given product does not exist therefore it cannot be added to cart."))
@@ -51,15 +57,15 @@ class SaleOrder(models.Model):
         if line_id is not False:
             order_line = self._cart_find_product_line(product_id, line_id,
                                                       **kwargs)[:1]
-            if uom_id :
+            if uom_id:
                 order_line_ids = order_line.order_id.order_line
-                current_product_ids = order_line_ids.filtered(lambda l: l.product_id.id == product_id)
+                current_product_ids = order_line_ids.filtered(
+                    lambda l: l.product_id.id == product_id)
                 if current_product_ids:
-                    order_line = current_product_ids.filtered(lambda  n: n.product_uom.id == uom_id.id)
-
+                    order_line = current_product_ids.filtered(
+                        lambda n: n.product_uom.id == uom_id.id)
         else:
             order_line = self.env['sale.order.line']
-
         try:
             if add_qty:
                 add_qty = int(add_qty)
@@ -89,14 +95,13 @@ class SaleOrder(models.Model):
                 **kwargs,
             )
         else:
-            # If the line will be removed anyway, there is no need to verify
-            # the requested quantity update.
             warning = ''
 
         self._remove_delivery_line()
 
+        # Update order line
         order_line = self._cart_update_order_line(product_id, quantity,
-                                                  order_line,uom_id, **kwargs)
+                                                  order_line, uom_id, **kwargs)
 
         if (
                 order_line
@@ -117,7 +122,6 @@ class SaleOrder(models.Model):
             'warning': warning,
         }
 
-
     def _cart_update_order_line(self, product_id, quantity, order_line, uom_id, **kwargs):
         """
         Update the order line in the cart based on the given product,
@@ -134,7 +138,6 @@ class SaleOrder(models.Model):
             if update_values:
                 self._update_cart_line_values(order_line, update_values)
         elif quantity > 0:
-            # Create new line
             order_line_values = self._prepare_order_line_values(product_id, quantity, **kwargs)
             if uom_id:
                 order_line_values['product_uom'] = uom_id.id

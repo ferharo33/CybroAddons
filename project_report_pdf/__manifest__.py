@@ -21,7 +21,7 @@
 ###############################################################################
 {
     'name': 'Project Report XLS & PDF',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Project',
     'summary': 'Advanced PDF & XLS reports for project.',
     'description': """Advanced PDF & XLS reports for project with filters for

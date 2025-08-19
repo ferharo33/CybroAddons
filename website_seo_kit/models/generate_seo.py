@@ -19,6 +19,8 @@
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 ############################################################################
+import re
+
 from odoo import api, fields, models
 
 
@@ -67,10 +69,11 @@ class GenerateSeo(models.Model):
                                  [('models', '=', 'product_category')])]
 
     def action_save_seo_info(self):
-        """Save the seo content"""
+        """Save the SEO content"""
         self.state = 'activated'
         for record in self.search([('id', '!=', self.id)]):
             record.state = 'deactivated'
+
         if self.model_name == 'product':
             if self.meta_title_ids:
                 products = self.env['product.template'].search_read(
@@ -79,9 +82,8 @@ class GenerateSeo(models.Model):
                 for product in products:
                     sep = self.attribute_separator
                     string = str(sep).join(
-                        str(product[x]) for x in product.keys() if x != 'id')
-                    string = string.translate({
-                        ord(i): None for i in "<p>(),'</p>"})
+                        str(product[x]) for x in product.keys() if x != 'id'
+                    )
                     values = {
                         'string': string,
                         'id': product['id']
@@ -99,9 +101,8 @@ class GenerateSeo(models.Model):
                 for product in products:
                     sep = self.attribute_separator
                     string = str(sep).join(
-                        str(product[x]) for x in product.keys() if x != 'id')
-                    string = string.translate(
-                        {ord(i): None for i in "<p>(),'</p>"})
+                        str(product[x]) for x in product.keys() if x != 'id'
+                    )
                     values = {
                         'string': string,
                         'id': product['id']
@@ -116,12 +117,10 @@ class GenerateSeo(models.Model):
                 'tag': 'display_notification',
                 'target': 'new',
                 'params': {
-                    'message': ("Successfully "
-                                "generated the seo for all products"),
+                    'message': "Successfully generated the SEO for all products",
                     'type': 'success',
                     'sticky': False,
                     'next': {'type': 'ir.actions.act_window_close'},
-
                 }
             }
 
@@ -134,15 +133,13 @@ class GenerateSeo(models.Model):
                 for product in products:
                     sep = self.attribute_separator
                     string = str(sep).join(
-                        str(product[x]) for x in product.keys() if x != 'id')
-                    string = string.translate(
-                        {ord(i): None for i in "<p>(),'</p>"})
+                        str(product[x]) for x in product.keys() if x != 'id'
+                    )
                     values = {
                         'string': string,
                         'id': product['id']
                     }
-                    pro = self.env['product.public.category'].browse(
-                        values['id'])
+                    pro = self.env['product.public.category'].browse(values['id'])
                     for rec in pro:
                         rec.write({
                             'website_meta_title': values['string'],
@@ -157,15 +154,13 @@ class GenerateSeo(models.Model):
                 for product in products:
                     sep = self.attribute_separator
                     string = str(sep).join(
-                        str(product[x]) for x in product.keys() if x != 'id')
-                    string = string.translate(
-                        {ord(i): None for i in "<p>(),'</p>"})
+                        str(product[x]) for x in product.keys() if x != 'id'
+                    )
                     values = {
                         'string': string,
                         'id': product['id']
                     }
-                    pro = self.env[
-                        'product.public.category'].browse(values['id'])
+                    pro = self.env['product.public.category'].browse(values['id'])
                     pro.write({
                         'website_meta_description': values['string'],
                     })
@@ -175,9 +170,7 @@ class GenerateSeo(models.Model):
                 'tag': 'display_notification',
                 'target': 'new',
                 'params': {
-                    'message':
-                        ("Successfully created the SEO only for product"
-                         " groups with auto SEO enabled."),
+                    'message': "Successfully created the SEO only for product groups with auto SEO enabled.",
                     'type': 'success',
                     'sticky': False,
                     'next': {'type': 'ir.actions.act_window_close'},

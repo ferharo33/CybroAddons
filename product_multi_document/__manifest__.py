@@ -21,7 +21,7 @@
 ###############################################################################
 {
     'name': 'Product Multi Document',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Purchases,Discuss',
     'summary': """Multiple documents can be attached to a product with the help
     of this module.""",

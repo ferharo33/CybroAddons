@@ -28,4 +28,5 @@ class ProductTemplate(models.Model):
 
     document_ids = fields.Many2many('documents.document',
                                     string='Document',
-                                    help='Added product document')
+                                    help='Added product document',
+                                    domain=[('type', '=', 'binary')])

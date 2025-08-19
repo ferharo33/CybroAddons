@@ -4,7 +4,6 @@ import { jsonrpc } from "@web/core/network/rpc_service";
 import { registry } from "@web/core/registry";
 	// Define a new class that extends PosComponent
 export class SaleOrderScreen extends Component {
-
 	     /**
 		 * Override the setup method to perform any additional setup logic.
 		 */
@@ -16,6 +15,7 @@ export class SaleOrderScreen extends Component {
 			this.env.services.pos.showScreen("ProductScreen");
 		}
 		getSaleOrderListLine() {
+		    console.log("SaleOrderListLine")
 			var order_line_id = [];
 			this.props.click_and_collect.forEach(function(object) {
 				if (object.is_click_and_collect == true) {

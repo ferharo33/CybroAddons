@@ -21,7 +21,7 @@
 ###############################################################################
 {
     'name': 'Size Restriction for Attachments',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Document Management',
     'summary': 'Shows an error message if attachment greater '
                'than users maximum attachment size.',

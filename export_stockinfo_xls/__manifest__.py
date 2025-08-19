@@ -21,7 +21,7 @@
 ###############################################################################
 {
     'name': 'Export Product Stock in Excel',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'summary': 'Advanced PDF & XLS reports for Product Stock.',
     'description': 'Advanced PDF & XLS reports for Product Stock by'
                    'corresponding warehouse and product categories.',

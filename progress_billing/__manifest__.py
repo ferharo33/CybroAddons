@@ -21,7 +21,7 @@
 #############################################################################
 {
     'name': "Customer Progress Billing",
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Accounting',
     'summary': """ Customer Invoice as Progress Billing for Project Odoo """,
     'description': """ This module enables your accounting users to generate
@@ -31,7 +31,7 @@
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.cybrosys.com",
-    'depends': ['account', 'account_accountant'],
+    'depends': ['account', 'account'],
     'data': [
         'reports/progress_billing_reports.xml',
         'reports/progress_billing_report_templates.xml',

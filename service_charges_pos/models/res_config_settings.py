@@ -23,53 +23,38 @@ from odoo import api, fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    """Inherited Configuration Settings"""
-    _inherit = "res.config.settings"
+    _inherit = 'res.config.settings'
 
-    enable_service_charge = fields.Boolean(string="Service Charges",
-                                           config_parameter="service_charges_"
-                                                            "pos.enable_service"
-                                                            "_charge",
-                                           help="Enable to add service charge")
-    visibility = fields.Selection([
+    # pos.config fields
+    pos_is_service_charges = fields.Boolean(
+        related='pos_config_id.is_service_charges', readonly=False)
+    pos_visibility_type = fields.Selection([
         ('global', 'Global'),
         ('session', 'Session')],
-        default='global', string="Visibility",
-        config_parameter="service_charges_pos.visibility",
-        help='Setup the Service charge globally or per session')
-    global_selection = fields.Selection([
+        related='pos_config_id.visibility_type',
+        readonly=False)
+    pos_service_charge = fields.Float(related='pos_config_id.service_charge',
+                                      readonly=False)
+    pos_service_product_id = fields.Many2one(
+        'product.product',
+        compute='_compute_pos_service_product_id', store=True, readonly=False)
+    pos_service_charge_type = fields.Selection([
         ('amount', 'Amount'),
         ('percentage', 'Percentage')],
-        string='Type', default='amount',
-        config_parameter="service_charges_pos.global_selection",
-        help='Set the service charge as a amount or percentage')
-    global_charge = fields.Float(string='Service Charge',
-                                 config_parameter="service_charges_pos."
-                                                  "global_charge",
-                                 help='Set a default service charge globally')
-    global_product_id = fields.Many2one('product.product',
-                                        string='Service Product',
-                                        domain="[('available_in_pos', '=', "
-                                               "True),"
-                                               "('sale_ok', '=', True), "
-                                               "('type', '=', 'service')]",
-                                        config_parameter="service_charges_pos"
-                                                         ".global_product_id",
-                                        help='Set a service product globally')
+        related='pos_config_id.service_charge_type',
+        readonly=False)
 
-    @api.onchange('enable_service_charge')
-    def onchange_enable_service_charge(self):
-        """When the service charge is enabled set service product and amount
-        by default in globally"""
-        if self.enable_service_charge:
-            if not self.global_product_id:
-                self.global_product_id = self.env[
-                    'product.product'].search([
-                        ('available_in_pos', '=', True),
-                        ('sale_ok', '=', True),
-                        ('type', '=', 'service')
-                    ], limit=1)
-                self.global_charge = 10.0
-        else:
-            self.global_product_id = False
-            self.global_charge = 0.0
+    @api.depends('company_id', 'pos_is_service_charges', 'pos_config_id')
+    def _compute_pos_service_product_id(self):
+        default_product = self.env.ref(
+            "point_of_sale.product_product_consumable",
+            raise_if_not_found=False) or self.env['product.product']
+        for res_config in self:
+            service_product = res_config.pos_config_id.service_product_id or (
+                default_product)
+            if (res_config.pos_is_service_charges) and (
+                    not service_product.company_id or (
+                    service_product.company_id) == res_config.company_id):
+                res_config.pos_service_product_id = service_product
+            else:
+                res_config.pos_service_product_id = False

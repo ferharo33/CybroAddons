@@ -37,9 +37,8 @@
     ],
     'assets': {
         'point_of_sale._assets_pos': [
-            'service_charges_pos/static/src/js/pos_load_data.js',
             'service_charges_pos/static/src/js/service_charge_button.js',
-            'service_charges_pos/static/src/xml/ServiceChargeButton.xml',
+            'service_charges_pos/static/src/xml/service_charge_button.xml',
         ],
     },
     'images': ['static/description/banner.png'],

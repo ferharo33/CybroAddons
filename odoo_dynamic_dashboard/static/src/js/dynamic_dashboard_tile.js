@@ -9,6 +9,7 @@ export class DynamicDashboardTile extends Component {
         this.doAction = this.props.doAction.doAction;
         this.dialog = this.props.dialog;
         this.orm = this.props.orm;
+
     }
     // Function to get the configuration of the tile
     async getConfiguration(ev){
@@ -42,12 +43,14 @@ export class DynamicDashboardTile extends Component {
     // Function for getting records by double click
     async getRecords(){
         var model_name = this.props.widget.model_name;
-        if (model_name){
+        this.saveLayout = document.getElementById("save_layout");
+        this.displayValue = window.getComputedStyle(this.saveLayout).display;
+        if (model_name && this.displayValue=='none'){
             await this.doAction({
               type: 'ir.actions.act_window',
               res_model: model_name,
-              view_mode: 'tree',
-              views: [[false, "tree"]],
+              view_mode: 'tree,form',
+              views: [[false, "tree"], [false, "form"]],
               domain: this.props.widget.domain,
           });
         }
@@ -55,7 +58,7 @@ export class DynamicDashboardTile extends Component {
 }
 DynamicDashboardTile.template = xml `
     <div class="resize-drag tile"
-        t-on-dblclick="getRecords"
+        t-on-click="getRecords"
         t-att-data-id="this.props.widget.id"
         t-att-data-x="this.props.widget.data_x"
         t-att-data-y="this.props.widget.data_y"

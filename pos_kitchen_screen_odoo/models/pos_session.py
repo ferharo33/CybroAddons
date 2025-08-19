@@ -40,7 +40,7 @@ class PosSession(models.Model):
             'domain': [],
             'fields': ['name', 'date_order', 'pos_reference',
                        'partner_id', 'lines', 'order_status', 'order_ref',
-                       'is_cooking']}}
+                       'is_cooking', 'minutes', 'floor']}}
 
     def _get_pos_ui_pos_order(self, params):
         """Get pos ui pos order"""
@@ -57,5 +57,7 @@ class PosSession(models.Model):
 
     def _get_pos_ui_pos_order_line(self, params):
         """Get pos ui pos order line"""
+        data = self.env['pos.order.line'].search_read(
+            **params['search_params'])
         return self.env['pos.order.line'].search_read(
             **params['search_params'])

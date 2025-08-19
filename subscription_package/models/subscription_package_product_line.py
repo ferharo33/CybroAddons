@@ -53,7 +53,6 @@ class SubscriptionPackageProductLine(models.Model):
                                   related='product_id.uom_id.category_id',
                                   help='Choose Product Uom quantity')
     unit_price = fields.Float(string='Unit Price', store=True, readonly=False,
-                              related='product_id.list_price',
                               help='Add Product Unit Price')
     discount = fields.Float(string="Discount (%)", help='Add Discount')
     tax_ids = fields.Many2many('account.tax', string="Taxes",
@@ -99,3 +98,11 @@ class SubscriptionPackageProductLine(models.Model):
             return True
         return super(SubscriptionPackageProductLine,
                      self)._valid_field_parameter(field, name)
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        """
+        Set unit_price to the product's list_price when product is selected
+        """
+        if self.product_id:
+            self.unit_price = self.product_id.list_price

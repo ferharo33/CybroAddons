@@ -140,19 +140,20 @@
                         </div>
                         <group>
                             <group col="4" colspan="4">
-                                <field name="patient_id"/>
-                                <field name="priority" widget="priority"/>
-                                <field name="name"/>
-                                <field name="date"/>
-                                <field name="appointment_date"/>
+                                <field name="patient_id" readonly="state != 'draft'"/>
+                                <field name="priority" widget="priority" readonly="state != 'draft'"/>
+                                <field name="name" readonly="state != 'draft'"/>
+                                <field name="date" readonly="state != 'draft'"/>
+                                <field name="appointment_date" readonly="state != 'draft'"/>
                                 <field name="physician_id"
+                                       readonly="state != 'draft'"
                                        domain="[('is_physician','=',True)]"
                                        context="{'search_default_is_physician':1, 'default_is_physician':1}"/>
                             </group>
                         </group>
                         <notebook colspan="4">
                             <page string="Lab Requests">
-                                <field name="appointment_line_ids">
+                                <field name="appointment_line_ids" readonly="state != 'draft'">
                                     <tree string="Lab Request"
                                           editable="bottom">
                                         <field name="lab_test_id"/>
@@ -162,7 +163,7 @@
                             </page>
                             <page name="Note"
                                   string="Note">
-                                <field name="comment"/>
+                                <field name="comment" readonly="state != 'draft'"/>
                             </page>
                         </notebook>
                     </sheet>

@@ -103,7 +103,7 @@ class PaymentTransaction(models.Model):
             "cart_description": self.reference,
             "cart_id": self.reference,
             "cart_currency": self.currency_id.name,
-            "cart_amount": (self.amount - sale_order.amount_tax),
+            "cart_amount": (self.amount),
             'return': urls.url_join(base_url,
                                     PaymentPaytabs._return_url),
             'callback': urls.url_join(base_url,

@@ -28,13 +28,19 @@
     'website': "https://www.cybrosys.com",
     'maintainer': "Cybrosys Techno Solutions",
     'category': 'Sales',
-    'version': '17.0.1.0.0',
+    'version': '17.0.2.1.0',
     'depends': ['base', 'product'],
     'data': [
         'security/hide_product_price_cost_groups.xml',
         'views/product_product_views.xml',
         'views/product_template_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'hide_product_price_cost/static/src/js/product_catalog.js',
+            'hide_product_price_cost/static/src/js/product_kanban_template.xml',
+                    ],
+     },
     'images': [
         'static/description/banner.jpg',
     ],

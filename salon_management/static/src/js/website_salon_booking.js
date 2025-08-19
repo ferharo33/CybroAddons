@@ -28,7 +28,7 @@ publicWidget.registry.SalonManagement = publicWidget.Widget.extend({
         if (name == "" || date == "" || time == "" || phone == "" || email == "" || list_service.length == 0) {
             alert("All fields are mandatory");
         } else {
-        var colonIndex = time.indexOf(":"); // Find the index of ":"
+        var colonIndex = time.indexOf(":");
         var hours = time.substring(0, colonIndex);
         var minutes = time.substring(colonIndex + 1)
         var colon = time[colonIndex];
@@ -37,6 +37,7 @@ publicWidget.registry.SalonManagement = publicWidget.Widget.extend({
         } else {
             var time_left = parseInt(hours);
             var time_right = parseInt(minutes);;
+                 console.log("number",number)
                 if ((time_left < 25) && (time_right < 60) && (time_left >= 0) && (time_right >= 0)) {
                     jsonrpc('/page/salon_details', {
                         name: name,
@@ -45,7 +46,9 @@ publicWidget.registry.SalonManagement = publicWidget.Widget.extend({
                         phone: phone,
                         email: email,
                         chair: chair,
-                        number: number
+                        number: number,
+                        list_service:list_service
+
                     }).then( function(result){
                     if (JSON.parse(result).result == true){
                         window.location.href = "/page/salon_management/salon_booking_thank_you";
@@ -60,6 +63,7 @@ publicWidget.registry.SalonManagement = publicWidget.Widget.extend({
     },
     /** Website function to check already booked chairs and details **/
     ClickCheckButton(ev){
+        console.log("ClickCheckButton")
         var check_date = this.$el.find("#check_date").val();
         if (check_date != "") {
             jsonrpc('/page/salon_check_date', {
@@ -71,6 +75,7 @@ publicWidget.registry.SalonManagement = publicWidget.Widget.extend({
                 var chair_name;
                 for (x in order_details) {
                     var chair_name = order_details[x]['name']
+                    console.log("chair_name:", chair_name)
                     var i;
                     var lines = "";
                     for (i = 0; i < order_details[x]['orders'].length; i++) {
@@ -96,6 +101,7 @@ publicWidget.registry.SalonManagement = publicWidget.Widget.extend({
                 date_field.innerHTML = "";
                 date_field.innerHTML = date_value;
             })
+
         } else {
             alert("Fill the Field");
         }

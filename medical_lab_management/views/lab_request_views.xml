@@ -38,15 +38,15 @@
                         <group>
                             <group col="4" colspan="4">
                                 <field name="lab_requestor" readonly="state != 'draft'"/>
-                                <field name="lab_request_id"/>
-                                <field name="lab_requesting_date" />
-                                <field name="test_request"/>
+                                <field name="lab_request_id" readonly="state == 'completed'"/>
+                                <field name="lab_requesting_date" readonly="state == 'completed'"/>
+                                <field name="test_request" readonly="state == 'completed'"/>
                                 <field name="app_id" invisible="1"/>
                             </group>
                         </group>
                         <notebook colspan="4">
                             <page string="Test lines">
-                                <field name="request_line">
+                                <field name="request_line" readonly="state == 'completed'">
                                      <tree string="Test lines" editable="bottom">
                                            <field name="test_content" />
                                            <field name="unit"/>
@@ -57,7 +57,7 @@
                             </page>
                             <page name="Note"
                              string="Note">
-                                <field name="comment"/>
+                                <field name="comment" readonly="state == 'completed'"/>
                             </page>
                         </notebook>
                     </sheet>

@@ -29,7 +29,7 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         """ Create manufacturing order of components in selected BOM """
         for rec in self.order_line:
-            if rec.bom_id:
+            if rec.bom_id and rec.bom_id.type != 'phantom' and rec.bom_id.type != 'subcontract':
                 mo = self.env["mrp.production"].create(
                     {
                         "product_id": rec.product_id.id,
@@ -46,12 +46,12 @@ class SaleOrder(models.Model):
                 list_move_raw = []
                 for move_raw_values in moves_raw_values:
                     list_move_raw += [(0, 0, move_raw_values)]
-        return super(SaleOrder, self).action_confirm()
+        return super().action_confirm()
 
     def write(self, values):
         """Super write method to change the manufacturing quantity
         based on sale order quantity"""
-        res = super(SaleOrder, self).write(values)
+        res = super().write(values)
         for order_line in self.order_line:
             if order_line.product_uom_qty:
                 mo = self.env["mrp.production"].search(

@@ -10,7 +10,6 @@
             <field name="report_file">customer_product_qrcode.customer_qr_template</field>
             <field name="paperformat_id"  ref="customer_product_qrcode.customer_badge_paperformat"/>
             <field name="print_report_name">'%s - Badge' % object.name</field>
-            <field name="binding_model_id" ref="model_res_partner"/>
             <field name="binding_type">report</field>
         </record>
 <!--        report action for product-->
@@ -22,7 +21,6 @@
             <field name="report_file">customer_product_qrcode.customer_qr_template</field>
             <field name="paperformat_id"  ref="customer_product_qrcode.customer_badge_paperformat"/>
             <field name="print_report_name">'%s - Badge' % object.name</field>
-            <field name="binding_model_id" ref="model_product_product"/>
             <field name="binding_type">report</field>
         </record>
     </data>

@@ -29,9 +29,8 @@
                             </ul>
                         </Orderline>
                     </OrderWidget>
-
                     <!-- Total -->
-                    <div class="pos-receipt-right-align">--------</div>
+                    <div class="pos-receipt-right-align">----********----</div>
                     <br/>
                     <div class="pos-receipt-amount">
                         TOTAL
@@ -51,9 +50,7 @@
                     </t>
                     <br/>
                     <br/>
-
                     <!-- Payment Lines -->
-
                     <div class="paymentlines" t-foreach="props.data.paymentlines"
                          t-as="line" t-key="line_index">
                         <t t-esc="line.name"/>
@@ -65,9 +62,7 @@
                         <span t-esc="props.formatCurrency(props.data.change)"
                               class="pos-receipt-right-align"/>
                     </div>
-
                     <!-- Extra Payment Info -->
-
                     <t t-if="props.data.total_discount">
                         <div>
                             Discounts

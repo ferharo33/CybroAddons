@@ -22,7 +22,7 @@
 ################################################################################
 {
     'name': 'POS Receipt Design',
-    'version': '17.0.1.0.4',
+    'version': '17.0.3.1.7',
     'category': 'Point of Sale',
     'summary': "POS Receipt, Receipt Design, POS Receipt Template, Design "
                "Report, Custom Receipt, POS Report, Customise Receipt, Odoo17, "
@@ -36,7 +36,8 @@
     'depends': ['base', 'point_of_sale'],
     'data': [
         'security/ir.model.access.csv',
-        'data/pos_receipt_data.xml',
+        'data/pos_receipt_design1_data.xml',
+        'data/pos_receipt_design2_data.xml',
         'views/pos_receipt_views.xml',
         'views/pos_config_views.xml'
     ],

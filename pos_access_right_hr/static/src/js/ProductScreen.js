@@ -31,5 +31,13 @@ patch(ProductScreen.prototype, {
             ...button,
             class: this.pos.numpadMode === button.value ? "active border-primary" : "",
         }));
+    },
+    disable_payment() {
+        if (this.pos.cashier?.disable_payment) {
+
+            return true;
+        } else {
+            return false;
+        }
     }
 });

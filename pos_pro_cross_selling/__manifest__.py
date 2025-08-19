@@ -21,7 +21,7 @@
 ################################################################################
 {
     'name': 'POS Cross-Selling',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.1.0',
     'category': 'Point Of Sale',
     'summary': 'Cross Selling products in pos',
     'description': "This module is used for cross selling products in pos. "
@@ -40,6 +40,7 @@
             '/pos_pro_cross_selling/static/src/app/cross_product/cross_product.js',
             '/pos_pro_cross_selling/static/src/app/cross_product/cross_product.xml',
             '/pos_pro_cross_selling/static/src/js/ProductItem.js',
+            '/pos_pro_cross_selling/static/src/js/product_scan.js',
             '/pos_pro_cross_selling/static/src/scss/cross_product.scss'
         ]
     },

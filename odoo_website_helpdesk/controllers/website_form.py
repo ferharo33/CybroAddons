@@ -69,6 +69,20 @@ class WebsiteFormInherit(WebsiteForm):
                 return json.dumps(
                     {'error': "No stage found with the lowest sequence."})
             products = kwargs.get('product')
+            # Check if partner already exists with the same email
+            email = kwargs.get('email_from')
+            existing_partner = request.env['res.partner'].sudo().search([
+                ('email', '=', email)
+            ], limit=1)
+            if existing_partner:
+                partner_create = existing_partner
+            else:
+                partner_create = request.env['res.partner'].sudo().create({
+                    'name': kwargs.get('customer_name'),
+                    'company_name': kwargs.get('company'),
+                    'phone': kwargs.get('phone'),
+                    'email': kwargs.get('email_from')
+                })
             if products:
                 split_product = products.split(',')
                 product_list = [int(i) for i in split_product]
@@ -81,7 +95,7 @@ class WebsiteFormInherit(WebsiteForm):
                     'priority': kwargs.get('priority'),
                     'product_ids': product_list,
                     'stage_id': lowest_stage_id.id,
-                    'customer_id': customer.id,
+                    'customer_id': partner_create.id,
                     'ticket_type_id': kwargs.get('ticket_type_id'),
                     'category_id': kwargs.get('category'),
                 }
@@ -94,11 +108,25 @@ class WebsiteFormInherit(WebsiteForm):
                     'phone': kwargs.get('phone'),
                     'priority': kwargs.get('priority'),
                     'stage_id': lowest_stage_id.id,
-                    'customer_id': customer.id,
+                    'customer_id': partner_create.id,
                     'ticket_type_id': kwargs.get('ticket_type_id'),
                     'category_id': kwargs.get('category'),
                 }
             ticket_id = request.env['ticket.helpdesk'].sudo().create(rec_val)
+            if ticket_id and partner_create.email:
+                request.env['mail.mail'].sudo().create({
+                    'subject': 'Your Ticket Has Been Created',
+                    'body_html': f"<p>Hello {partner_create.name},</p><p>Your ticket <strong>{ticket_id.name}</strong> with the subject <strong>{ticket_id.subject}</strong> has been successfully submitted. Our support team will contact you soon.</p> <p>Thank You.</p>",
+                    'email_to': partner_create.email,
+                    'email_from': request.env.user.email or 'support@example.com',
+                }).send()
+                ticket_id.message_post(
+                    body="A confirmation email regarding the ticket creation has been sent to the customer.",
+                    subject="Ticket Confirmation Email",
+                    message_type='email',
+                    subtype_xmlid="mail.mt_comment",
+                )
+
             request.session['ticket_number'] = ticket_id.name
             request.session['ticket_id'] = ticket_id.id
             model_record = request.env['ir.model'].sudo().search(

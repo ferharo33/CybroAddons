@@ -20,8 +20,10 @@
 #
 ###############################################################################
 import json
+
 import requests
 from werkzeug import urls
+
 from odoo import fields, models, _
 from odoo.exceptions import UserError
 from odoo.http import request
@@ -44,6 +46,10 @@ class ResConfigSettings(models.TransientModel):
         string='Onedrive Client Secret',
         config_parameter='onedrive_integration_odoo.client_secret',
         help="Client Secret for accessing OneDrive API")
+    onedrive_tenant_id = fields.Char(
+        string="Onedrive Tenant Id",
+        config_parameter='onedrive_integration_odoo.tenant_id',
+        help="Director (tenant) id for accessing OneDrive API")
     onedrive_access_token = fields.Char(
         string='Onedrive Access Token',
         help="Access Token for authenticating with OneDrive API")
@@ -72,37 +78,48 @@ class ResConfigSettings(models.TransientModel):
             'redirect_uri': request.env['ir.config_parameter'].get_param(
                 'web.base.url') + '/onedrive/authentication'
         }
+        tenant_id = self.env['ir.config_parameter'].get_param(
+                'onedrive_integration_odoo.tenant_id', '')
         res = requests.post(
-            "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+            f"https://login.microsoftonline.com/common/oauth2/v2.0/token",
             data=data,
             headers={"content-type": "application/x-www-form-urlencoded"})
         response = res.content and res.json() or {}
+
         if 'error' in response:
-            raise UserError(_("Error '%s': Please check the credentials.",
-                              response['error']))
-        else:
-            authority = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
-            action = self.env["ir.actions.client"].sudo()._for_xml_id(
-                "onedrive_integration_odoo.onedrive_dashboard_action")
-            base_url = request.env['ir.config_parameter'].get_param(
-                'web.base.url')
-            url_return = base_url + '/web#id=%d&action=%d&view_type=form&model=%s' \
-                         % (self.id, action['id'], 'onedrive.dashboard')
-            encoded_params = urls.url_encode({
-                'response_type': 'code',
-                'client_id': self.env['ir.config_parameter'].get_param(
-                    'onedrive_integration_odoo.client_id', ''),
-                'state': json.dumps({
-                    'onedrive_config_id': self.id,
-                    'url_return': url_return
-                }),
-                'scope': ['offline_access openid Files.ReadWrite.All'],
-                'redirect_uri': base_url + '/onedrive/authentication',
-                'prompt': 'consent',
-                'access_type': 'offline'
-            })
-            return {
-                'type': 'ir.actions.act_url',
-                'target': 'self',
-                'url': "%s?%s" % (authority, encoded_params),
-            }
+            res = requests.post(
+                f"https://login.microsoftonline.com/consumers/oauth2/v2.0/token",
+                data=data,
+                headers={"content-type": "application/x-www-form-urlencoded"})
+            response = res.content and res.json() or {}
+
+            if 'error' in response:
+                raise UserError(_("Error '%s': Please check the credentials.",
+                                  response['error']))
+
+
+        authority = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/authorize'
+        action = self.env["ir.actions.client"].sudo()._for_xml_id(
+            "onedrive_integration_odoo.onedrive_dashboard_action")
+        base_url = request.env['ir.config_parameter'].get_param(
+            'web.base.url')
+        url_return = base_url + '/web#id=%d&action=%d&view_type=form&model=%s' \
+                     % (self.id, action['id'], 'onedrive.dashboard')
+        encoded_params = urls.url_encode({
+            'response_type': 'code',
+            'client_id': self.env['ir.config_parameter'].get_param(
+                'onedrive_integration_odoo.client_id', ''),
+            'state': json.dumps({
+                'onedrive_config_id': self.id,
+                'url_return': url_return
+            }),
+            'scope': ['offline_access openid Files.ReadWrite.All'],
+            'redirect_uri': base_url + '/onedrive/authentication',
+            'prompt': 'consent',
+            'access_type': 'offline'
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': "%s?%s" % (authority, encoded_params),
+        }

@@ -71,7 +71,7 @@ class ProductProduct(models.Model):
             'customer_product_qr.config.product_prefix')
         if not prefix:
             raise UserError(
-                _('Set A Customer Prefix In General Settings'))
+                _('Set A Product Prefix In General Settings'))
         prefix = str(prefix)
         self.sequence = prefix + self.env['ir.sequence'].next_by_code(
             'product.product') or '/'

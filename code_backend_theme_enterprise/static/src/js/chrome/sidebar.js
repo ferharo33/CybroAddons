@@ -1,4 +1,4 @@
-odoo.define('code_backend_theme_enterprise.SideBar', [], function (require) {
+   odoo.define('code_backend_theme_enterprise.SideBar', [], function (require) {
     "use strict";
     // Sidebar toggle effect
     $(document).on("click", "#closeSidebar", function(event){

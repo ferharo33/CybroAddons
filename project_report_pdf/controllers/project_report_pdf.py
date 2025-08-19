@@ -45,6 +45,7 @@ class XLSXReportController(http.Controller):
                             report_name + '.xlsx'))
                     ]
                 )
+                print(report_obj, "report_obj")
                 report_obj.get_xlsx_report(options, response)
             response.set_cookie('fileToken', token)
             return response

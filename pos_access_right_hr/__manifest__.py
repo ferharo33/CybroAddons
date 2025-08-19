@@ -21,7 +21,7 @@
 ################################################################################
 {
     'name': 'POS Access Right',
-    'version': '17.0.2.1.1',
+    'version': '17.0.2.1.2',
     "category": 'Point of Sale',
     'summary': 'To Restrict POS features for cashiers',
     'description': 'This app allows you to enable or disable POS features '

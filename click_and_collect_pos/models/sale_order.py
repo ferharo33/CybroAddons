@@ -45,9 +45,15 @@ class SaleOrder(models.Model):
         return super(SaleOrder, self)._action_confirm()
 
     def action_split_delivery_order(self):
-        """to split delivery order and click and collect order separately"""
+        """To split delivery order and click and collect order separately"""
         click_and_collect_list = [line for line in self.order_line.filtered(
             lambda l: l.is_click_and_collect)]
+        if len(click_and_collect_list):
+            message = {
+                "channel": 'POS_COLLECT_ORDER',
+            }
+            self.env["bus.bus"]._sendone('POS_COLLECT_ORDER', "notification",
+                                         message)
         for res in click_and_collect_list:
             delivery_order = self.env['stock.picking'].create({
                 'partner_id': self.partner_id.id,

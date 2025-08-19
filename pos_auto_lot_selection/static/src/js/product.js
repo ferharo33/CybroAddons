@@ -3,6 +3,7 @@ import { patch } from "@web/core/utils/patch";
 import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
 import { Product } from "@point_of_sale/app/store/models";
 import { jsonrpc } from "@web/core/network/rpc_service";
+import { ComboConfiguratorPopup } from "@point_of_sale/app/store/combo_configurator_popup/combo_configurator_popup";
 
 patch(Product.prototype, {
     async getAddProductOptions(code) {
@@ -25,7 +26,7 @@ patch(Product.prototype, {
                 return;
             }
         }
-        if (this.combo_ids.length) {
+         if (this.combo_ids.length) {
             const { confirmed, payload } = await this.env.services.popup.add(
                 ComboConfiguratorPopup,
                 { product: this, keepBehind: true }
@@ -34,6 +35,7 @@ patch(Product.prototype, {
             }
             comboLines = payload;
         }
+
         // Gather lot information if required.
         if (this.isTracked()) {
             packLotLinesToEdit =
@@ -77,7 +79,6 @@ patch(Product.prototype, {
                 if (confirmed) {
                     quantity = payload.weight;
                 } else {
-                    // do not add the product;
                     return;
                 }
             } else {

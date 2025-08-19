@@ -19,3 +19,8 @@
 #### Version 17.0.1.1.3
 #### UPDATE
  - Updated the workflow maintenance request and cleaning request model(removed a field from each)
+
+#### 14.10.2024
+#### Version 17.0.1.2.4
+#### UPDATE
+- Updated the invisible condition of 'create invoice' button in room booking model

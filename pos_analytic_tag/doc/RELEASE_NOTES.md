@@ -12,3 +12,9 @@
 #### BUGFIX
 
 - Updated the bug with analytic tag of the journal entries
+
+#### 02.12.2024
+#### Version 17.0.1.0.2
+#### BUGFIX
+
+- Updated the bug with analytic tag of the pos config model

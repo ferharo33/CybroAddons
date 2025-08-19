@@ -1,4 +1,4 @@
-/** @odoo-module **/
+//** @odoo-module **/
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { jsonrpc } from "@web/core/network/rpc_service";
 import { patch } from "@web/core/utils/patch";

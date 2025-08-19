@@ -1,6 +1,11 @@
 /** @odoo-module */
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { patch } from "@web/core/utils/patch";
+import { Chrome } from "@point_of_sale/app/pos_app";
+import { useService } from "@web/core/utils/hooks";
+import { _t } from "@web/core/l10n/translation";
+
+
 patch(PosStore.prototype, {
          /**
          *Override PosGlobalState to load fields in pos session
@@ -15,4 +20,4 @@ patch(PosStore.prototype, {
 			})
 			this.stock_picking = stock_picking
      }
-   })
+})

@@ -79,21 +79,23 @@ class SalonBooking(models.Model):
 
     def action_approve_booking(self):
         """Approve the booking for salon services"""
+        salon_order = self.env['salon.order'].create(
+                        {'customer_name': self.name,
+                         'chair_id': self.chair_id.id,
+                         'start_time': self.time,
+                         'date': fields.Datetime.now(),
+                         'stage_id': 1,
+                         'booking_identifier': True})
         for service in self.service_ids:
             self.env['salon.order.line'].create({
                 'service_id': service.id,
                 'time_taken': service.time_taken,
                 'price': service.price,
                 'price_subtotal': service.price,
-                'salon_order_id': self.env['salon.order'].create(
-                        {'customer_name': self.name,
-                         'chair_id': self.chair_id.id,
-                         'start_time': self.time,
-                         'date': fields.Datetime.now(),
-                         'stage_id': 1,
-                         'booking_identifier': True}).id,
+                'salon_order_id': salon_order.id,
             })
-        self.env['mail.template'].browse(self.env.ref(
+
+        mail = self.env['mail.template'].browse(self.env.ref(
             'salon_management.mail_template_salon_approved').id).send_mail(
                         self.id, force_send=True)
         self.state = "approved"

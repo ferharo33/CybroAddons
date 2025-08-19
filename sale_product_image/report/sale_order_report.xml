@@ -12,12 +12,11 @@
         </xpath>
         <xpath expr="//t[@t-foreach='lines_to_report']//td[@name='td_name']"
                position="after">
-            <t t-if="request.env['ir.config_parameter'].sudo().get_param('sale_product_image.is_show_product_image_in_sale_report')">
-                <td style="height:100px !important;width:100px !important;">
-                    <span t-field="line.order_line_image"
-                          t-options='{"widget": "image"}'/>
-                </td>
-            </t>
+           <t t-if="request.env['ir.config_parameter'].sudo().get_param('sale_product_image.is_show_product_image_in_sale_report')">
+               <td>
+                   <img t-att-src="image_data_uri(line.order_line_image)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
+               </td>
+           </t>
         </xpath>
     </template>
 </odoo>

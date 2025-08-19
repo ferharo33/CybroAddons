@@ -6,11 +6,11 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-            <field name="lst_price" position="attributes">
-                <attribute name="groups">hide_product_price_cost.hide_product_price_cost_group_user_show_product_price</attribute>
-            </field>
             <field name="standard_price" position="attributes">
                 <attribute name="groups">hide_product_price_cost.hide_product_price_cost_group_user_show_product_cost</attribute>
+            </field>
+            <field name="lst_price" position="attributes">
+                <attribute name="groups">hide_product_price_cost.hide_product_price_cost_group_user_show_product_price</attribute>
             </field>
         </field>
     </record>

@@ -23,28 +23,20 @@ from odoo import models
 
 
 class PosSession(models.Model):
-    """Inherited POS Session"""
     _inherit = 'pos.session'
 
-    def _pos_ui_models_to_load(self):
-        """Supering the function for loading res.config.settings to pos
-        session"""
-        result = super()._pos_ui_models_to_load()
-        result.append('res.config.settings')
+    def _get_pos_ui_product_product(self, params):
+        result = super()._get_pos_ui_product_product(params)
+        service_product_id = self.config_id.service_product_id.id
+        product_ids_set = {product['id'] for product in result}
+
+        if self.config_id.is_service_charges and (
+                service_product_id) not in product_ids_set:
+            product_model = self.env['product.product'].with_context(
+                **params['context'])
+            product = product_model.search_read([(
+                'id', '=', service_product_id
+            )], fields=params['search_params']['fields'])
+            self._process_pos_ui_product_product(product)
+            result.extend(product)
         return result
-
-    def _loader_params_res_config_settings(self):
-        """Returning the field required"""
-        return {
-            'search_params': {
-                'fields': ['enable_service_charge', 'visibility',
-                           'global_selection', 'global_charge',
-                           'global_product_id'],
-            },
-        }
-
-    def _get_pos_ui_res_config_settings(self, params):
-        """Returns the model"""
-        return self.env['res.config.settings'].sudo().search_read(
-            **params['search_params']
-        )

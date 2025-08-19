@@ -33,7 +33,7 @@
                         Community
                     </div>
                     <div class="text-center"
-                         style="background-color:#875A7B !important;font-size: 0.8rem !important; color:#fff !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:50px !important; min-width: 120px !important;">
+                         style="background-color:#017E84 !important;font-size: 0.8rem !important; color:#fff !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:50px !important; min-width: 120px !important;">
                         Enterprise
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <p class="my-3 mb-4"
                    style="max-width: 80%; font-weight: 400 !important; line-height: 32px; color: #718096;">
                     The odoo Rest API module allow us to connect to database
-                    with the help of GET , POST , PUT and DELETE request.
+                    with the help of GET ,POST ,PUT and DELETE request.
                 </p>
                 <div style="width: 80%; margin-top: 3rem;">
                     <img src="assets/screenshots/hero.gif"
@@ -177,7 +177,7 @@
                             style="color: #fff;font-weight: 500; background-color: #714B67; text-decoration: none;">
                         <i class="fa-regular fa-image  pr-2"
                            style="color: #fff;"></i>
-                        Screenshots</a></li>
+                        Documentation</a></li>
                 <li class="col text-center py-2 text-nowrap "
                     style="color: #fff; background-color: #714B67;border-radius: 6px 6px 0px 0px;">
                     <a
@@ -199,213 +199,31 @@
                     <div class="col-lg-12 py-2"
                          style="padding: 1rem 4rem !important;">
                         <div
-                                style="border: 1px solid #d8d6d6; border-radius: 4px; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                             <div class="row justify-content-center p-3 w-100 m-0">
-                                <img src="assets/screenshots/rest_api_1.png"
-                                     class="img-responsive" width="100%"
-                                     height="auto">
-                            </div>
-                            <div class="row justify-content-center p-3 w-100 m-0">
-                                <img src="assets/screenshots/rest_api.png"
-                                     class="img-responsive" width="100%"
+                                <img src="assets/screenshots/1.png"
+                                     class="img-thumbnail" width="100%"
                                      height="auto">
                             </div>
                             <div class="px-3">
                                 <h4 class="mt-2"
                                     style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    <ul>
-                                        <li>First of all, we have to add a new
-                                            parameter in odoo conf.
-                                            file.
-                                        </li>
-                                        <li><b>server_wide_modules = web, base,
-                                            rest_api_odoo</b><br/>
-                                            - This will allow us to send request
-                                            to
-                                            server without
-                                            selecting database first.<br/>-
-                                            Incase
-                                            if you have to
-                                            uninstall the module , you have to
-                                            remove this parameter.
-                                            <br/>- Next we can install the
-                                            module.
-                                        </li>
-                                        <li>After installing the Rest api app we
-                                            can
-                                            see a new api key
-                                            field in users.
-                                        </li>
-                                        - Next we have to generate the api-key
-                                        for
-                                        the current
-                                        user.<br/>
-                                        <li>You can import the postman
-                                            collections
-                                            provided in the app
-                                            folder for authentication and
-                                            interacting with database in
-                                            various methods.
-                                        </li>
-                                    </ul>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 py-2"
-                         style="padding: 1rem 4rem !important;">
-                        <div
-                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                            <div class="row justify-content-center p-3 w-100 m-0">
-                                <img src="assets/screenshots/rest_api_2.png"
-                                     class="img-responsive" width="100%"
-                                     height="auto">
-                            </div>
-                            <div class="px-3">
-                                <h4 class="mt-2"
-                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    <ul>
-                                        <li>We have attached <b>Postman
-                                            collections</b> through which
-                                            you can
-                                            authenticate rest api.
-                                        </li>
-                                        <li>First, extract the <b>zip</b> file.
-                                            Then, you will obtain the
-                                            JSON-format
-                                            file, which you can directly import
-                                            into
-                                            <b>POSTMAN.</b></li>
-                                        <li>The url format will be like this -
-                                            <b>http://localhost:8017/odoo_connect</b>
-                                            Replace 'localhost:8016' with your
-                                            localhost port number.
-                                        </li>
-                                        <li>You have to provide database name,
-                                            username and password
-                                            through the headers while sending
-                                            request.
-                                        </li>
-                                        <li>If the authentication is successful
-                                            , an
-                                            api key will be
-                                            generated for the current user.
-                                        </li>
-                                        <li>This key will be used when sending
-                                            api
-                                            requests to
-                                            database.
-                                        </li>
-                                        <li>The response will be like this - <b>
-                                            {"Status": "auth
-                                            successful", "User": "Mitchell
-                                            Admin",
-                                            "api-key":
-                                            "66c2ebab-d4dc-42f0-87d0-d1646e887569"}.</b>
-                                        </li>
-                                    </ul>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 py-2"
-                         style="padding: 1rem 4rem !important;">
-                        <div
-                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                            <div class="row justify-content-center p-3 w-100 m-0">
-                                <img src="assets/screenshots/rest_api_3.png"
-                                     class="img-responsive" width="100%"
-                                     height="auto">
-                            </div>
-                            <div class="row justify-content-center p-3 w-100 m-0">
-                                <img src="assets/screenshots/rest_api_4.png"
-                                     class="img-responsive" width="100%"
-                                     height="auto">
-                            </div>
-                            <div class="row justify-content-center p-3 w-100 m-0">
-                                <img src="assets/screenshots/rest_api_5.png"
-                                     class="img-responsive" width="100%"
-                                     height="auto">
-                            </div>
-                            <div class="px-3">
-                                <h4 class="mt-2"
-                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    <ul>
-                                        <li>After rest api authentication, we
-                                            can
-                                            create records in the
-                                            rest api app.
-                                        </li>
-                                        <li>Here we can choose the model, and
-                                            also
-                                            we can
-                                            choose the http methods.
-                                        </li>
-                                        <li>The api response will be based on
-                                            these
-                                            records.
-                                        </li>
-                                    </ul>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 py-2"
-                         style="padding: 1rem 4rem !important;">
-                        <div
-                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                            <div class="px-3">
-                                <h4 class="mt-2"
-                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    Get Records</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 py-2"
-                         style="padding: 1rem 4rem !important;">
-                        <div
-                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                            <div class="px-3">
-                                <ul>
-                                    <li>You can send GET request to retrieve
-                                        data from the
-                                        database.
-                                    </li>
-                                    <li>The postman collection has been provided
-                                        with-->
-                                        app files for
-                                        sending request from postman.
-                                    </li>
-                                    <li>You have to provide username, password
-                                        and api
-                                        key through
-                                        the header.
-                                    </li>
-                                    <li>Model can be passed as argument as the
-                                        technical
-                                        name , and
-                                        also if you want
-                                        specific record you can provide the id
-                                        as well,
-                                    </li>
-                                    <li>The format for GET method will be like
-                                        this
-                                        <b>http://localhost:8016/send_request?model=res.partner&Id=10.</b>
-                                    </li>
-                                    <li>We can specify the fields inside the
-                                        JSON data,
-                                        and it will
-                                        be like this - <b>{"fields": ["name",
-                                            "email"]}.</b></li>
-                                    <li>This is the format of api response - <b>{"records":
-                                        [{"id":
-                                        10, "email":
-                                        "deco.addict82@example.com",
-                                        "name": "Deco
-                                        Addict"}]}.</b>
-                                    </li>
+                                   Step 1: Add a New Parameter in the Odoo.conf
+                                    File</h4>
+                                <p>
+                                    Before installing the module, Add
+                                    "server_wide_modules = web, base,
+                                    rest_api_odoo" to odoo.conf file. This
+                                    configuration enables the server to handle
+                                    requests without requiring database
+                                    selection. Once this is done, you can
+                                    proceed to
+                                    install the module.
+                                    <br/><b>Note:</b> If you need to uninstall
+                                    the module, ensure you remove this parameter
+                                    from the configuration file.
 
-                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -413,10 +231,20 @@
                          style="padding: 1rem 4rem !important;">
                         <div
                                 style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/2.png"
+                                     class="img-thumbnail" width="100%"
+                                     height="auto">
+                            </div>
                             <div class="px-3">
                                 <h4 class="mt-2"
                                     style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    Create Records</h4>
+                                   Step 2: Locate the Postman collections in the
+                                    provided app folder.</h4>
+                                <p>
+                                    In the extracted module folder, locate the
+                                    Postman collections file in JSON format.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -424,58 +252,16 @@
                          style="padding: 1rem 4rem !important;">
                         <div
                                 style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/3.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
                             <div class="px-3">
                                 <h4 class="mt-2"
                                     style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    <ul>
-                                        <li>Using POST method , you can create
-                                            new records
-                                            in the
-                                            database.
-                                        </li>
-                                        <li>Just make sure you enabled POST
-                                            method for the
-                                            model record
-                                            in rest api app , otherwise you will
-                                            get <b>'method
-                                                not
-                                                allowed'</b> message.
-                                        </li>
-                                        <li>For creating record you have to
-                                            provide the JSON
-                                            data along
-                                            with the model.
-                                        </li>
-                                        <li>You can make use of the postman
-                                            collection that
-                                            we have
-                                            added with app files.
-                                        </li>
-                                        <li>The format for sending POST request
-                                            will be like
-                                            this - <b>http://localhost:8016/send_request?model=res.partner.</b>
-                                        </li>
-                                        <li>This is the format for JSON data -
-                                            <b>{
-                                                "fields" :["name", "phone"] ,
-                                                "values": {"name": "abc",
-                                                "phone":"55962441552"
-                                                } }.</b>
-                                        </li>
-                                        <li>Make sure the data entered in
-                                            correct format
-                                            otherwise you
-                                            will get <b>'Invalid JSON data'
-                                                message.</b>
-                                        </li>
-                                        <li>Response will be in this format -
-                                            <b>{"New
-                                                resource":
-                                                [{"id": 51, "name": "abc",
-                                                "phone":
-                                                "55962441552"}]}.</b>
-                                        </li>
-                                    </ul>
+                                   Step 3: Open Postman and click the Import
+                                    button.
                                 </h4>
                             </div>
                         </div>
@@ -484,56 +270,16 @@
                          style="padding: 1rem 4rem !important;">
                         <div
                                 style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                            <div class="px-3">
-                                <h4 class="mt-2"
-                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    Update Records</h4>
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/4.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 py-2"
-                         style="padding: 1rem 4rem !important;">
-                        <div
-                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                             <div class="px-3">
                                 <h4 class="mt-2"
                                     style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    <ul>
-                                        <li>Updation of records in the database
-                                            can be done
-                                            with PUT
-                                            method.
-                                        </li>
-                                        <li>You have to provide the model and
-                                            also the id or
-                                            the record
-                                            that you want to update.
-                                        </li>
-                                        <li>You can use the Postman collection
-                                            that we have
-                                            provided and , you
-                                            will be always have to send request
-                                            with your
-                                            login
-                                            credentials. Otherwise, it will be
-                                            showing
-                                            access denied.
-                                        </li>
-                                        <li>The format for sending PUT request
-                                            will be like
-                                            this - <b>http://localhost:8016/send_request?model=res.partner&Id=46.</b>
-                                        </li>
-                                        <li>Here too you have to provide the
-                                            JSON data
-                                            through which the
-                                            updates will be done.
-                                        </li>
-                                        <li>The response format will be like
-                                            this - <b>{"Updated
-                                                resource": [{"id": 46, "email":
-                                                "abc@example.com", "name":
-                                                "Toni"}]}.</b></li>
-                                    </ul>
+                                   Step 4: Select the JSON file from the module folder
+                                    to import the collection.
                                 </h4>
                             </div>
                         </div>
@@ -542,10 +288,16 @@
                          style="padding: 1rem 4rem !important;">
                         <div
                                 style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/5.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
                             <div class="px-3">
                                 <h4 class="mt-2"
                                     style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    Delete Records</h4>
+                                    Imported collections.
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -553,39 +305,382 @@
                          style="padding: 1rem 4rem !important;">
                         <div
                                 style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/6.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
                             <div class="px-3">
                                 <h4 class="mt-2"
                                     style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
-                                    <ul>
-                                        <li>Database records can be deleted by
-                                            sending
-                                            DELETE method
-                                            request.
-                                        </li>
-                                        <li>For the deletion we have to provide
-                                            the Model
-                                            and the record
-                                            id that we want to delete.
-                                        </li>
-                                        <li>Make sure you have permission to
-                                            delete files
-                                            for the
-                                            selected model in the rest api
-                                            record.
-                                        </li>
-                                        <li>The delete request format will be
-                                            like this -
-                                            <b>http://localhost:8016/send_request?model=res.partner&Id=46.</b>
-                                        </li>
-                                        <li> The response after successful
-                                            deletion will be
-                                            -<b>
-                                                {"Resource deleted": [{"id": 46,
-                                                "email":
-                                                "abc@example.com",
-                                                "name": "Toni"}]}.</b></li>
-                                    </ul>
+                                    Step 5:Open Authentication.
                                 </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/7.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                  Step 6: Update the Base URL, db (Database Name),
+                                    login (Database Username) and password
+                                    (Database Password) under Headers.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/8.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                   Step 7: Click Send.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/9.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    If authentication is successful, an API key
+                                    will be generated for the current user.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/10.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    API Key in the User's Form View
+                                </h4>
+                                <p>
+                                    To find the generated API Key for the
+                                    current user, navigate to Settings > Users &
+                                    Companies > Users, open the user's form
+                                    view, and go to the API tab. The API Key
+                                    will be displayed there.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/11.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                   Step 8: Create Rest API Records.
+                                </h4>
+                                <p>
+                                    Navigate to Rest API in Rest API module and
+                                    create new record. Select
+                                    the model and the HTTP methods. The chosen
+                                    methods
+                                    will determine the allowed actions on the
+                                    records, and the API response will reflect
+                                    the changes made.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/12.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    Step 9: Getting Records via REST API
+                                </h4>
+                                <p>
+                                    Open Get records api collection in postman
+                                    and add the db, login, password, api-key in
+                                    the headers. Pass the model
+                                    (e.g., product.template) in the URL to
+                                    retrieve records for that model.
+                                     <br>
+                                    <b>
+                                        Note:
+                                    </b>
+                                    Make sure that GET method is enabled for product.template model in Rest API record.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/13.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    Step 10: Specify the fields you want to retrieve in
+                                    the JSON data under Body section and click
+                                    Send.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/14.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    The retrieved records.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/15.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                   Step 11: Get a specific record.
+                                </h4>
+                                <p>
+                                    To retrieve a specific record, pass the ID
+                                    in the URL (e.g.,
+                                    http://localhost:8027/send_request?model=product.template&Id=28)
+                                    and click Send.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/16.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    Retrieved record.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/17.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                   Step 12: Creating Records via POST Method
+                                </h4>
+                                <p>
+                                    Open Create Records from Rest API
+                                    Collection. Add db, api-key, login and
+                                    password under Headers. Update the Base Url.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/18.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    Step 13: Provide the JSON data under the Body section
+                                    and specify the model in the URL. Click
+                                    Send.</h4>
+                                <p><b>
+                                    Note:</b> Make sure that POST method is enabled for the selected model in Rest API record.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/19.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    Created Record.</h4></div>
+                        </div>
+                    </div>
+                     <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/20.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                    Step 14: Update Records Using PUT.</h4>
+                            <p>
+                              Open Update Records from Rest API
+                                    Collection. Add db, api-key, login and
+                                    password under Headers. Update the Base Url.
+                                 <b>
+                                    Note:</b> Make sure that PUT method is enabled for the selected model in Rest API record.
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/21.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                                   Step 15: Provide the JSON data under the Body section
+                                    and specify the model in the URL. Click
+                                    Send.</h4>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/22.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                             Response after record update.</h4>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/23.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                             Step 16: Delete Records Using DELETE.</h4>
+                                <p>
+                                    Open Delete Records from Rest API
+                                    Collection. Add db, api-key, login and
+                                    password under Headers. Update the Base Url. Add the model and the id of the record to delete and click Send.
+                                    <b>
+                                    Note:</b> Make sure that DELETE method is enabled for the selected model in Rest API record.
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 py-2"
+                         style="padding: 1rem 4rem !important;">
+                        <div
+                                style="border: 1px solid #d8d6d6; border-radius: 4px;  background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div class="row justify-content-center p-3 w-100 m-0">
+                                <img src="assets/screenshots/24.png"
+                                     class="img-responsive" width="100%"
+                                     height="auto">
+                            </div>
+                            <div class="px-3">
+                                <h4 class="mt-2"
+                                    style=" font-weight:600 !important; color:#282F33 !important; font-size:1.3rem !important">
+                            Response after deleting the record.</h4>
                             </div>
                         </div>
                     </div>
@@ -593,6 +688,7 @@
                 <div id="tab2" class="tab-pane fade">
                     <div class="col-mg-12" style="padding: 1rem 4rem;">
                         <ul style="list-style: none; padding: 1rem 0;font-weight: 500;">
+
                             <li class="py-3"
                                 style="font-weight: 500;background-color: #fff; border-radius: 4px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                                     <span style="margin-right: 12px;"><img
@@ -1083,5 +1179,7 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+
 </body>
 </html>

@@ -19,56 +19,70 @@
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 ################################################################################
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from odoo.osv.expression import OR
 
 
 class PosConfig(models.Model):
-    """Inherited POS Configuration"""
+    """
+    To inherit model pos.config
+    """
     _inherit = 'pos.config'
 
-    is_session = fields.Boolean(string="Session",
-                                compute='_compute_check_session',
-                                help="Check it is for sessions", )
-    is_service_charges = fields.Boolean(string="Service Charges",
-                                        help="Enable to add service charge")
-    charge_type = fields.Selection(
-        [('amount', 'Amount'),
-         ('percentage', 'Percentage')],
-        string='Type', default='amount',
-        help="Can choose charge percentage or amount")
+    is_service_charges = fields.Boolean("Service Charges")
+    visibility_type = fields.Selection([
+        ('global', 'Global'),
+        ('session', 'Session')],
+        string='Visibility', default='global',
+        help="Can choose visibility of service charges.")
     service_charge = fields.Float(string='Service Charge',
-                                  help="Charge need to apply")
+                                  help="Charge need to apply",
+                                  default=10.0)
     service_product_id = fields.Many2one('product.product',
                                          string='Service Product',
-                                         domain="[('available_in_pos', '=', "
-                                                "True),"
-                                                "('sale_ok', '=', True), "
-                                                "('type', '=', 'service')]",
+                                         domain="[('sale_ok', '=', True)]",
                                          help="Service Product")
+    service_charge_type = fields.Selection([
+        ('amount', 'Amount'),
+        ('percentage', 'Percentage')],
+        string='Type', default='amount',
+        help="Can choose charge percentage or amount")
 
-    def _compute_check_session(self):
-        """To check the service charge is set up for session wise or
-        globally"""
-        for record in self:
-            check_session = self.env['ir.config_parameter'].sudo().get_param(
-                'service_charges_pos.visibility')
-            if check_session == 'session':
-                record.is_session = True
-            else:
-                record.is_session = False
+    @api.model
+    def _default_service_charge_on_module_install(self):
+        configs = self.env['pos.config'].search([])
+        open_configs = (
+            self.env['pos.session']
+            .search(['|', ('state', '!=', 'closed'), ('rescue', '=', True)])
+            .mapped('config_id')
+        )
+        # Do not modify configs where an opened session exists.
+        product = self.env.ref("point_of_sale.product_product_consumable",
+                               raise_if_not_found=False)
+        for conf in (configs - open_configs):
+            conf.service_product_id = product if (
+                 conf.is_service_charges
+            ) and product and (
+                not product.company_id or product.company_id == conf.company_id
+            ) else False
 
-    @api.onchange('is_service_charges')
-    def onchange_is_service_charges(self):
-        """When the service charge is enabled set service product
-        and amount by default per session"""
-        if self.is_service_charges:
-            if not self.service_product_id:
-                self.service_product_id = self.env[
-                    'product.product'].search([
-                        ('available_in_pos', '=', True),
-                        ('sale_ok', '=', True), ('type', '=', 'service')
-                    ], limit=1)
-                self.service_charge = 10.0
-        else:
-            self.service_product_id = False
-            self.service_charge = 0.0
+    def open_ui(self):
+        for config in self:
+            if not self.current_session_id and (
+                    config.is_service_charges
+            ) and not config.service_product_id:
+                raise UserError(_(
+                    'A discount product is needed to use the Service Charge '
+                    'feature. Go to Point of Sale > Configuration > Settings '
+                    'to set it.'))
+        return super().open_ui()
+
+    def _get_special_products(self):
+        res = super()._get_special_products()
+        return res | self.env['pos.config'].search(
+            []).mapped('service_product_id')
+
+    def _get_available_product_domain(self):
+        domain = super()._get_available_product_domain()
+        return OR([domain, [('id', '=', self.service_product_id.id)]])

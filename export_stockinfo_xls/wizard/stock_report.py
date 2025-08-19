@@ -97,16 +97,18 @@ class StockReport(models.TransientModel):
                AND s_p_t.warehouse_id = %s AND p_o_l.product_id in %s group by p_o_l.product_id"""
         params = warehouse_ids, product_ids if product_ids else (0, 0)
         self._cr.execute(sale_query, params)
+        sale = self._cr.dictfetchall()
         self._cr.execute(purchase_query, params)
+        purchase = self._cr.dictfetchall()
         for rec in category_products:
             sale_value = 0
             purchase_value = 0
-            for sale_product in self._cr.dictfetchall():
+            for sale_product in sale:
                 if sale_product['product_id'] == rec.id:
-                    sale_value = sale_product['product_uom_qty']
-            for purchase_product in self._cr.dictfetchall():
+                    sale_value += sale_product.get('product_uom_qty', 0)
+            for purchase_product in purchase:
                 if purchase_product['product_id'] == rec.id:
-                    purchase_value = purchase_product['product_qty']
+                    purchase_value += purchase_product.get('product_qty', 0)
             virtual_available = rec.with_context(
                 {'warehouse': warehouse_ids}).virtual_available
             outgoing_qty = rec.with_context(

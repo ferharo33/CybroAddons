@@ -57,6 +57,7 @@
                                                 <div>
                                                     <input type="checkbox"
                                                            t-att-service-id="service.id"
+                                                           id="service.name"
                                                            class="check_box_salon"/>
                                                     <label for="service.id"
                                                            t-esc="service.name"/>

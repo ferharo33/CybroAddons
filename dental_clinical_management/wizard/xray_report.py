@@ -22,7 +22,7 @@
 from odoo import fields, models
 
 
-class XRayReport(models.TransientModel):
+class XRayReport(models.Model):
     """To add the x-ray report of the patients"""
     _name = 'xray.report'
     _description = 'X-Ray Report'
@@ -34,7 +34,7 @@ class XRayReport(models.TransientModel):
                               default=lambda self: fields.Date.context_today(self),
                               required=True,
                               help="date of report adding")
-    report_file = fields.Binary(string='Report File', required=True,
+    report_file = fields.Binary(string='Report File', required=True,store=True,
                                 help="File to upload")
     file_name = fields.Char(string="File Name",
                             help="Name of the file")

@@ -21,7 +21,7 @@
 ################################################################################
 {
     'name': 'Website Product Multi Uom',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Website',
     'summary': 'Select the Products UOM before adding to Cart',
     'description': 'This module allows customers to select the preferred '

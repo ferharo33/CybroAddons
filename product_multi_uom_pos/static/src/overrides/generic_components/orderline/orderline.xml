@@ -9,7 +9,7 @@
                 <button id="reset_uom" style="margin-top: 15px; background:transparent;border:transparent;
                                                     margin-bottom: 5px;margin-left: 180px;"
                         t-on-click="line.resetUom">
-                    <i class="fa fa-rotate-left"/>
+                    <i class="fa fa-rotate-left" style="transform: translateY(25%);"/>
                 </button>
             <select style="width:32%;height:25px;border-radius:5px;border:1px solid transparent;margin-top: -22px;
                                     margin-bottom: 5px;margin-left: 10px; background: rgb(95 115 116 / 20%);"

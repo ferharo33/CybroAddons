@@ -21,7 +21,7 @@
 #############################################################################
 {
     'name': 'PayTabs Payment Acquirer',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'eCommerce,Marketing',
     'summary': 'PayTabs Payment Gateway For Website',
     'description': "This module enables seamless payments through PayTabs, "

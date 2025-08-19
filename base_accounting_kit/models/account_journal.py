@@ -35,6 +35,7 @@ class AccountJournal(models.Model):
             # to this journal
             bank_stmt = self.env['account.bank.statement'].search(
                 [('journal_id', 'in', self.ids)]).mapped('line_ids')
+            print("lines", bank_stmt)
             return {
                 'type': 'ir.actions.client',
                 'tag': 'bank_statement_reconciliation_view',

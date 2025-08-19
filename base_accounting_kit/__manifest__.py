@@ -20,8 +20,8 @@
 #
 #############################################################################
 {
-    'name': 'Odoo 17 Full Accounting Kit',
-    'version': '17.0.1.0.4',
+    'name': 'Odoo 17 Full Accounting Kit for Community',
+    'version': '17.0.1.1.6',
     'category': 'Accounting',
     'summary': """Odoo 17 Accounting, Odoo 17 Accounting Reports, Odoo17 Accounting, Odoo Accounting, Odoo17 Financial Reports, Odoo17 Asset, Odoo17 Profit and Loss, PDC, Followups, Odoo17, Accounting, Odoo Apps, Reports""",
     'description': """ Odoo 17 Accounting, The module used to manage the Full
@@ -44,6 +44,7 @@
         'data/multiple_invoice_data.xml',
         'data/recurring_entry_cron.xml',
         'data/account_pdc_data.xml',
+        'views/account_journal_dashboard_view.xml',
         'views/reports_config_view.xml',
         'views/accounting_menu.xml',
         'views/account_group.xml',

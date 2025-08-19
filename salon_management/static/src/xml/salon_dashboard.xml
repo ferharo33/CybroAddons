@@ -75,11 +75,10 @@
       </div>
     </div>
         <!--  Dashboard chairs view-->
-        <article role="main" id="chairs_dashboard_view">
-      <t t-foreach="this.state.list" t-as="chair" t-key="chair">
+        <article role="main" id="chairs_dashboard_view" t-ref="chairs_dashboard_view">
+      <t t-foreach="this.state.list" t-as="chair" t-key="chair.id">
         <div class="salon_chair" t-att-id="chair['id']"
-             t-att-value="chair['id']" t-on-click="chairs_click"
-             t-ref="chairs_dashboard_view">
+             t-att-value="chair['id']" t-on-click="chairs_click">
             <h4 class="chair_name" t-att-id="chair['id']">
                 <t t-esc="chair['name']"/>
             </h4>

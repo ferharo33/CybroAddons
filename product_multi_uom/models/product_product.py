@@ -34,13 +34,14 @@ class ProductProduct(models.Model):
                                         help='Select the secondary UoM and '
                                              'their ratio', store=True)
 
-    @api.onchange('is_need_secondary_uom')
+    @api.onchange('is_need_secondary_uom', 'uom_id')
     def _onchange_is_need_secondary_uom(self):
         """Function that write the default Uom and their ratio to the
         secondary uom"""
         base_uom = self.env['uom.uom'].sudo().search(
-                [('category_id', '=', self.uom_id.category_id.id)])
-        if not self.secondary_uom_ids:
+            [('category_id', '=', self.uom_id.category_id.id)])
+        if not self.secondary_uom_ids or self.uom_id.id not in self.secondary_uom_ids.mapped('secondary_uom_id').ids:
+            self.secondary_uom_ids = [fields.Command.clear()]
             for uom in base_uom:
                 self.write({
                     'secondary_uom_ids': [(0, 0, {
@@ -50,3 +51,13 @@ class ProductProduct(models.Model):
                                          f" {self.uom_id.name}",
                     })]
                 })
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """ Assign the default value to the secondary uom's """
+        res = super().create(vals_list)
+        for rec in res:
+            if rec.product_tmpl_id.is_need_secondary_uom:
+                rec.is_need_secondary_uom = True
+            rec._onchange_is_need_secondary_uom()
+        return res

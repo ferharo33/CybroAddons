@@ -21,7 +21,7 @@
 #############################################################################
 {
     "name": "Sale Order Line Images",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": 'Sales',
     "summary": "Order Line Images In Sale and Sale Report",
     "description": """Order Line Images In Sale and Sale Report, odoo 17, order line images""",
@@ -36,6 +36,7 @@
         'views/sale_order_line_views.xml',
         'views/res_config_settings_views.xml',
         'report/sale_order_report.xml',
+        'views/sale_portal_templates.xml',
     ],
     'images': ['static/description/banner.jpg'],
     'license': 'LGPL-3',
